@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Radhika Beach Resort & Spa — Diu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --sand:    #f5efe6;
+      --sand2:   #ede3d5;
+      --ocean:   #1a3a4a;
+      --teal:    #2d6a7f;
+      --gold:    #c9a84c;
+      --gold2:   #e8c97a;
+      --white:   #fdfaf6;
+      --dark:    #0d1f28;
+      --muted:   #6b8a96;
+      --ff-disp: 'Cormorant Garamond', Georgia, serif;
+      --ff-body: 'Jost', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff-body); background: var(--white); color: var(--dark); overflow-x: hidden; }
+
+    /* ═══ NAV ═══ */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 200;
+      padding: 0 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(13,31,40,0.97);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 30px rgba(0,0,0,0.3);
+    }
+    .nav-logo {
+      font-family: var(--ff-disp); font-size: 1.35rem; font-weight: 600;
+      color: var(--white); letter-spacing: 0.5px; line-height: 1.2; z-index: 301;
+    }
+    .nav-logo small {
+      display: block; font-size: 0.6rem; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--gold2);
+      font-family: var(--ff-body); font-weight: 300;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+    .nav-links a {
+      color: rgba(255,255,255,0.8); text-decoration: none;
+      font-size: 0.76rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold2); }
+    .nav-book {
+      background: var(--gold) !important; color: var(--dark) !important;
+      padding: 10px 22px !important; font-weight: 600 !important;
+    }
+    .nav-book:hover { background: var(--gold2) !important; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; z-index: 301; padding: 4px;
+      background: none; border: none;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile Nav Drawer */
+    .mobile-nav {
+      display: none; position: fixed; inset: 0; z-index: 300;
+      background: rgba(13,31,40,0.98);
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 0;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .mobile-nav.open { opacity: 1; pointer-events: all; }
+    .mobile-nav a {
+      color: var(--white); text-decoration: none;
+      font-family: var(--ff-disp); font-size: 2.2rem; font-weight: 300;
+      padding: 16px 0; letter-spacing: 1px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      width: 70%; text-align: center;
+      transition: color 0.2s;
+    }
+    .mobile-nav a:last-child { border-bottom: none; }
+    .mobile-nav a:hover, .mobile-nav a:active { color: var(--gold2); }
+    .mobile-nav .mob-book {
+      margin-top: 24px; font-family: var(--ff-body);
+      font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase;
+      background: var(--gold); color: var(--dark) !important;
+      padding: 14px 40px; font-weight: 600; border-bottom: none;
+    }
+    .mobile-contact-strip {
+      margin-top: 32px; text-align: center;
+    }
+    .mobile-contact-strip a {
+      font-family: var(--ff-body); font-size: 0.85rem;
+      color: rgba(255,255,255,0.4) !important; letter-spacing: 1px;
+      border: none; padding: 4px 0; width: auto; display: block;
+    }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      height: 100vh; min-height: 600px;
+      background: linear-gradient(170deg, #0a1e2a 0%, #1a3a4a 40%, #2d6a7f 100%);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .wave { position: absolute; bottom: 0; left: 0; width: 200%; height: 160px; opacity: 0.12; }
+    .wave1 { animation: wave 8s linear infinite; }
+    .wave2 { animation: wave 12s linear infinite reverse; opacity: 0.07; bottom: 20px; }
+    @keyframes wave {
+      0% { transform: translateX(0); } 100% { transform: translateX(-50%); }
+    }
+    .hero-bg-circles { position: absolute; inset: 0; pointer-events: none; }
+    .circle { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.08), transparent 70%); }
+    .c1 { width: 600px; height: 600px; top: -100px; right: -100px; }
+    .c2 { width: 400px; height: 400px; bottom: 100px; left: -50px; }
+
+    .hero-content {
+      text-align: center; position: relative; z-index: 2; padding: 0 24px;
+      animation: heroFadeIn 1.2s ease both;
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; width: 30px; height: 1px; background: var(--gold); opacity: 0.6;
+    }
+    .hero h1 {
+      font-family: var(--ff-disp); font-size: clamp(3rem, 11vw, 7.5rem);
+      font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 6px;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold2); }
+    .hero-sub {
+      font-family: var(--ff-disp); font-style: italic;
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      color: rgba(255,255,255,0.5); margin-bottom: 40px; font-weight: 300;
+    }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--dark);
+      padding: 14px 36px; text-decoration: none;
+      font-size: 0.78rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600;
+      transition: background 0.3s, transform 0.2s; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.4); color: var(--white);
+      padding: 14px 36px; text-decoration: none;
+      font-size: 0.78rem; letter-spacing: 2.5px; text-transform: uppercase;
+      transition: border-color 0.3s, background 0.3s; display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.1); }
+
+    /* Booking bar */
+    .booking-bar {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
+      background: rgba(13,31,40,0.93); backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(201,168,76,0.2);
+      padding: 18px 60px;
+      display: flex; align-items: center; gap: 0; justify-content: center;
+    }
+    .booking-field {
+      display: flex; flex-direction: column;
+      padding: 0 28px; border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .booking-field:last-of-type { border-right: none; }
+    .booking-field label {
+      font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 4px; font-weight: 600;
+    }
+    .booking-field input, .booking-field select {
+      background: transparent; border: none; outline: none;
+      color: var(--white); font-family: var(--ff-body);
+      font-size: 0.88rem; font-weight: 300; cursor: pointer; min-width: 110px;
+    }
+    .booking-field select option { background: var(--dark); }
+    .booking-submit {
+      margin-left: 28px; background: var(--gold); color: var(--dark);
+      border: none; cursor: pointer; padding: 12px 32px;
+      font-family: var(--ff-body); font-size: 0.76rem;
+      letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+      transition: background 0.3s; white-space: nowrap;
+    }
+    .booking-submit:hover { background: var(--gold2); }
+
+    /* Mobile booking - card style */
+    .mobile-booking {
+      display: none;
+      background: var(--ocean); padding: 28px 20px; margin: 0;
+    }
+    .mobile-booking h3 {
+      font-family: var(--ff-disp); color: var(--white);
+      font-size: 1.4rem; font-weight: 300; margin-bottom: 20px; text-align: center;
+    }
+    .mob-booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .mob-field {
+      display: flex; flex-direction: column; gap: 4px;
+      background: rgba(255,255,255,0.06); padding: 12px 14px; border-radius: 2px;
+    }
+    .mob-field label {
+      font-size: 0.58rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+    }
+    .mob-field input, .mob-field select {
+      background: transparent; border: none; outline: none;
+      color: var(--white); font-family: var(--ff-body);
+      font-size: 0.9rem; font-weight: 300; width: 100%;
+    }
+    .mob-field select option { background: var(--dark); }
+    .mob-booking-btn {
+      margin-top: 14px; width: 100%; background: var(--gold);
+      border: none; color: var(--dark); padding: 14px;
+      font-family: var(--ff-body); font-size: 0.8rem;
+      letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* ═══ STATS ═══ */
+    .about-strip {
+      background: var(--ocean); padding: 48px 60px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; flex-wrap: wrap;
+    }
+    .stat { text-align: center; padding: 16px 40px; }
+    .stat-num { font-family: var(--ff-disp); font-size: 2.8rem; font-weight: 300; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 6px; }
+    .stat-divider { width: 1px; height: 50px; background: rgba(255,255,255,0.1); }
+
+    /* ═══ SECTIONS ═══ */
+    .section { padding: 90px 60px; }
+    .section-label {
+      font-size: 0.68rem; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 14px; font-weight: 600;
+    }
+    .section-title {
+      font-family: var(--ff-disp); font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300; color: var(--ocean); line-height: 1.15;
+    }
+    .section-title em { font-style: italic; color: var(--teal); }
+    .max-w { max-width: 1200px; margin: 0 auto; }
+
+    /* ═══ ABOUT ═══ */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center; max-width: 1200px; margin: 0 auto;
+    }
+    .about-text p { color: var(--muted); line-height: 1.9; font-size: 1rem; margin-bottom: 18px; font-weight: 300; }
+    .about-visual { position: relative; height: 480px; }
+    .about-img-main {
+      width: 80%; height: 400px;
+      background: linear-gradient(135deg, var(--teal), var(--ocean));
+      position: absolute; right: 0; top: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 5rem;
+    }
+    .about-img-accent {
+      width: 55%; height: 200px;
+      background: linear-gradient(135deg, var(--gold), #a87c30);
+      position: absolute; left: 0; bottom: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 3rem;
+    }
+    .about-badge {
+      position: absolute; right: 20px; bottom: 70px;
+      width: 90px; height: 90px; background: var(--gold); border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-family: var(--ff-disp); color: var(--dark); text-align: center; z-index: 2;
+    }
+    .about-badge span:first-child { font-size: 1.8rem; font-weight: 600; line-height: 1; }
+    .about-badge span:last-child { font-size: 0.5rem; letter-spacing: 2px; text-transform: uppercase; }
+
+    /* ═══ ROOMS ═══ */
+    .rooms-section { background: var(--sand); padding: 90px 60px; }
+    .rooms-header { max-width: 1200px; margin: 0 auto 50px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px; }
+    .rooms-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(2,1fr); gap: 2px; }
+    .room-card { position: relative; overflow: hidden; cursor: pointer; height: 400px; }
+    .room-card.featured { grid-row: span 2; height: 802px; }
+    .room-bg { width: 100%; height: 100%; transition: transform 0.6s ease; display: flex; align-items: center; justify-content: center; font-size: 6rem; }
+    .room-card:nth-child(1) .room-bg { background: linear-gradient(160deg,#1a4a5e,#0d2a38); }
+    .room-card:nth-child(2) .room-bg { background: linear-gradient(160deg,#2d5a3d,#1a3a28); }
+    .room-card:nth-child(3) .room-bg { background: linear-gradient(160deg,#5a3a1a,#3a2010); }
+    .room-card:nth-child(4) .room-bg { background: linear-gradient(160deg,#3a1a5a,#21102e); }
+    .room-card:hover .room-bg { transform: scale(1.05); }
+    .room-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 55%);
+      padding: 28px; display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .room-type { font-size: 0.62rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; font-weight: 600; }
+    .room-name { font-family: var(--ff-disp); font-size: 1.7rem; font-weight: 300; color: var(--white); margin-bottom: 10px; }
+    .room-card.featured .room-name { font-size: 2.3rem; }
+    .room-desc { color: rgba(255,255,255,0.6); font-size: 0.84rem; line-height: 1.6; margin-bottom: 16px; font-weight: 300; }
+    .room-price { display: flex; align-items: baseline; gap: 6px; }
+    .room-price .amt { font-family: var(--ff-disp); font-size: 1.7rem; color: var(--gold2); }
+    .room-price .per { font-size: 0.72rem; color: rgba(255,255,255,0.45); letter-spacing: 1px; }
+    .room-cta {
+      display: inline-block; margin-top: 14px;
+      border: 1px solid rgba(201,168,76,0.5); color: var(--gold2);
+      padding: 9px 22px; font-size: 0.7rem; letter-spacing: 2px;
+      text-transform: uppercase; text-decoration: none; font-weight: 500;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .room-cta:hover { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+
+    /* ═══ AMENITIES ═══ */
+    .amenities-section { padding: 90px 60px; }
+    .amenities-grid { max-width: 1200px; margin: 50px auto 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; }
+    .amenity-card { padding: 36px 28px; border: 1px solid var(--sand2); transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
+    .amenity-card:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 16px 40px rgba(26,58,74,0.1); }
+    .amenity-icon { font-size: 2.2rem; margin-bottom: 18px; display: block; }
+    .amenity-card h3 { font-family: var(--ff-disp); font-size: 1.25rem; font-weight: 400; color: var(--ocean); margin-bottom: 10px; }
+    .amenity-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.7; font-weight: 300; }
+
+    /* ═══ DISCOVER ═══ */
+    .discover-section { background: var(--ocean); padding: 90px 60px; }
+    .discover-section .section-label { color: var(--gold); }
+    .discover-section .section-title { color: var(--white); }
+    .discover-grid { max-width: 1200px; margin: 50px auto 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .discover-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 32px 24px; transition: background 0.3s, transform 0.3s; }
+    .discover-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-4px); }
+    .discover-card .icon { font-size: 2.2rem; margin-bottom: 16px; display: block; }
+    .discover-card h3 { font-family: var(--ff-disp); font-size: 1.3rem; color: var(--white); margin-bottom: 10px; font-weight: 400; }
+    .discover-card p { color: rgba(255,255,255,0.48); font-size: 0.86rem; line-height: 1.7; font-weight: 300; }
+
+    /* ═══ TESTIMONIAL ═══ */
+    .testimonial-section { background: var(--sand); padding: 90px 60px; text-align: center; }
+    .testimonial-quote { max-width: 780px; margin: 36px auto; font-family: var(--ff-disp); font-size: clamp(1.3rem, 2.5vw, 1.9rem); font-style: italic; font-weight: 300; color: var(--ocean); line-height: 1.65; }
+    .testimonial-author { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-top: 22px; }
+    .stars { color: var(--gold); font-size: 1rem; margin-bottom: 14px; letter-spacing: 4px; }
+
+    /* ═══ CONTACT ═══ */
+    .contact-section { padding: 90px 60px; }
+    .contact-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
+    .contact-info-title { font-family: var(--ff-disp); font-size: 2rem; font-weight: 300; color: var(--ocean); margin-bottom: 36px; }
+    .contact-item { display: flex; gap: 18px; margin-bottom: 28px; }
+    .c-icon { width: 46px; height: 46px; border-radius: 50%; background: var(--sand); border: 1px solid var(--sand2); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; transition: background 0.3s; }
+    .contact-item:hover .c-icon { background: var(--gold); }
+    .contact-item h4 { font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; font-weight: 600; }
+    .contact-item a, .contact-item p { color: var(--ocean); text-decoration: none; font-size: 0.93rem; font-weight: 300; }
+    .contact-item a:hover { color: var(--teal); }
+    .contact-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .contact-form input, .contact-form textarea, .contact-form select {
+      background: var(--sand); border: 1px solid var(--sand2); outline: none;
+      padding: 13px 16px; font-family: var(--ff-body); font-size: 0.9rem;
+      color: var(--dark); font-weight: 300; transition: border-color 0.3s; width: 100%;
+    }
+    .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { border-color: var(--gold); }
+    .contact-form textarea { height: 120px; resize: vertical; }
+    .contact-form select option { background: var(--white); }
+    .form-submit {
+      background: var(--ocean); color: var(--white); border: none; cursor: pointer;
+      padding: 15px 44px; font-family: var(--ff-body); font-size: 0.78rem;
+      letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500;
+      transition: background 0.3s; align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--teal); }
+
+    /* ═══ FOOTER ═══ */
+    footer { background: var(--dark); }
+    .footer-top { padding: 64px 60px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+    .footer-brand .logo { font-family: var(--ff-disp); font-size: 1.5rem; font-weight: 400; color: var(--white); margin-bottom: 14px; }
+    .footer-brand p { color: rgba(255,255,255,0.38); font-size: 0.86rem; line-height: 1.8; font-weight: 300; }
+    .footer-social { display: flex; gap: 10px; margin-top: 22px; }
+    .social-btn { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.82rem; transition: border-color 0.3s, color 0.3s; }
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-col h4 { font-size: 0.62rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; font-weight: 600; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 11px; }
+    .footer-col ul a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.86rem; font-weight: 300; transition: color 0.3s; }
+    .footer-col ul a:hover { color: var(--gold2); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding: 22px 60px; display: flex; justify-content: space-between; align-items: center; color: rgba(255,255,255,0.22); font-size: 0.76rem; flex-wrap: wrap; gap: 8px; }
+
+    /* Call to action floating (mobile) */
+    .mobile-cta-bar {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
+      background: var(--dark); border-top: 2px solid var(--gold);
+      padding: 12px 16px; gap: 10px;
+    }
+    .mobile-cta-bar a {
+      flex: 1; text-align: center; text-decoration: none; padding: 12px 8px;
+      font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;
+      border-radius: 2px;
+    }
+    .cta-call { background: var(--teal); color: var(--white); }
+    .cta-book { background: var(--gold); color: var(--dark); }
+
+    /* ═══ ANIMATIONS ═══ */
+    @keyframes heroFadeIn { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ═══════════════════════════════
+       RESPONSIVE — TABLET (≤ 960px)
+    ═══════════════════════════════ */
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-nav { display: flex; }
+
+      .booking-bar { display: none; }
+      .mobile-booking { display: block; }
+
+      .section, .rooms-section, .amenities-section, .discover-section,
+      .contact-section, .testimonial-section { padding: 64px 24px; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-visual { height: 260px; }
+      .about-img-main { width: 75%; height: 220px; }
+      .about-img-accent { width: 50%; height: 130px; }
+      .about-badge { width: 76px; height: 76px; right: 14px; bottom: 40px; }
+      .about-badge span:first-child { font-size: 1.5rem; }
+
+      .rooms-grid { grid-template-columns: 1fr; gap: 2px; }
+      .room-card { height: 320px; }
+      .room-card.featured { height: 360px; grid-row: span 1; }
+
+      .amenities-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .amenity-card { padding: 24px 20px; }
+
+      .discover-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .discover-card { padding: 24px 18px; }
+
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-submit { width: 100%; padding: 15px; align-self: stretch; }
+
+      .about-strip { padding: 40px 20px; gap: 0; }
+      .stat { padding: 12px 20px; }
+      .stat-num { font-size: 2.2rem; }
+      .stat-divider { height: 40px; }
+
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; padding: 48px 24px; }
+      .footer-bottom { padding: 18px 24px; }
+
+      .rooms-header { padding: 0; }
+      .mobile-cta-bar { display: flex; }
+      body { padding-bottom: 68px; }
+    }
+
+    /* ═══════════════════════════════
+       RESPONSIVE — MOBILE (≤ 480px)
+    ═══════════════════════════════ */
+    @media (max-width: 480px) {
+      .hero h1 { font-size: clamp(2.6rem, 14vw, 4rem); }
+      .hero-btns { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-outline { width: 100%; max-width: 280px; text-align: center; }
+
+      .about-strip { flex-wrap: wrap; }
+      .stat { width: 45%; }
+      .stat-divider { display: none; }
+
+      .amenities-grid { grid-template-columns: 1fr; }
+      .discover-grid { grid-template-columns: 1fr; }
+
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+
+      .mob-booking-grid { grid-template-columns: 1fr; }
+
+      .mobile-nav a { font-size: 1.8rem; width: 85%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <div class="nav-logo">
+    Radhika Resort
+    <small>Beach · Spa · Diu</small>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#amenities">Amenities</a></li>
+    <li><a href="#discover">Diu</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="nav-book">Book Now</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── MOBILE NAV DRAWER ── -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" class="mob-link">About</a>
+  <a href="#rooms" class="mob-link">Rooms</a>
+  <a href="#amenities" class="mob-link">Amenities</a>
+  <a href="#discover" class="mob-link">Discover Diu</a>
+  <a href="#contact" class="mob-link">Contact</a>
+  <a href="#contact" class="mob-link mob-book">Book Now</a>
+  <div class="mobile-contact-strip">
+    <a href="tel:+919824418555">📞 +91 98244 18555</a>
+    <a href="mailto:info@radhikaresort.com">✉ info@radhikaresort.com</a>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg-circles">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+  </div>
+  <svg class="wave wave1" viewBox="0 0 1440 160" xmlns="http://www.w3.org/2000/svg">
+    <path fill="rgba(255,255,255,1)" d="M0,80 C360,160 720,0 1080,80 C1260,120 1350,60 1440,80 L1440,160 L0,160 Z"/>
+    <path fill="rgba(255,255,255,1)" d="M0,80 C360,160 720,0 1080,80 C1260,120 1350,60 1440,80 L1440,160 L720,160 Z" transform="translate(720,0)"/>
+  </svg>
+  <svg class="wave wave2" viewBox="0 0 1440 160" xmlns="http://www.w3.org/2000/svg">
+    <path fill="rgba(255,255,255,1)" d="M0,100 C480,40 960,140 1440,100 L1440,160 L0,160 Z"/>
+    <path fill="rgba(255,255,255,1)" d="M0,100 C480,40 960,140 1440,100 L1440,160 L0,160 Z" transform="translate(720,0)"/>
+  </svg>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Nagoa Beach · Diu · India</p>
+    <h1>Radhika<br/><em>Beach Resort</em></h1>
+    <p class="hero-sub">& Spa</p>
+    <div class="hero-btns">
+      <a href="#rooms" class="btn-primary">Explore Rooms</a>
+      <a href="#contact" class="btn-outline">Make a Reservation</a>
+    </div>
+  </div>
+  <!-- Desktop booking bar -->
+  <div class="booking-bar">
+    <div class="booking-field">
+      <label>Check In</label>
+      <input type="date" id="d1"/>
+    </div>
+    <div class="booking-field">
+      <label>Check Out</label>
+      <input type="date" id="d2"/>
+    </div>
+    <div class="booking-field">
+      <label>Guests</label>
+      <select>
+        <option>1 Adult</option><option>2 Adults</option>
+        <option>2 Adults, 1 Child</option><option>2 Adults, 2 Children</option>
+      </select>
+    </div>
+    <div class="booking-field">
+      <label>Room Type</label>
+      <select>
+        <option>Any Room</option><option>Deluxe Comfort</option>
+        <option>Deluxe Classic</option><option>Royal Classic</option><option>VIP Suite</option>
+      </select>
+    </div>
+    <button class="booking-submit">Check Availability</button>
+  </div>
+</section>
+
+<!-- Mobile booking card -->
+<div class="mobile-booking">
+  <h3>Check Availability</h3>
+  <div class="mob-booking-grid">
+    <div class="mob-field"><label>Check In</label><input type="date" id="md1"/></div>
+    <div class="mob-field"><label>Check Out</label><input type="date" id="md2"/></div>
+    <div class="mob-field">
+      <label>Guests</label>
+      <select>
+        <option>1 Adult</option><option>2 Adults</option>
+        <option>2 Adults, 1 Child</option><option>2 Adults, 2 Children</option>
+      </select>
+    </div>
+    <div class="mob-field">
+      <label>Room Type</label>
+      <select>
+        <option>Any Room</option><option>Deluxe Comfort</option>
+        <option>Deluxe Classic</option><option>Royal Classic</option><option>VIP Suite</option>
+      </select>
+    </div>
+  </div>
+  <button class="mob-booking-btn">Check Availability →</button>
+</div>
+
+<!-- ── STATS ── -->
+<div class="about-strip">
+  <div class="stat"><div class="stat-num">4+</div><div class="stat-label">Room Categories</div></div>
+  <div class="stat-divider"></div>
+  <div class="stat"><div class="stat-num">★ 4.5</div><div class="stat-label">Guest Rating</div></div>
+  <div class="stat-divider"></div>
+  <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Beach Access</div></div>
+  <div class="stat-divider"></div>
+  <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Room Service</div></div>
+  <div class="stat-divider"></div>
+  <div class="stat"><div class="stat-num">Diu</div><div class="stat-label">Prime Location</div></div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section id="about" class="section">
+  <div class="about-grid">
+    <div class="about-visual">
+      <div class="about-img-main">🏖️</div>
+      <div class="about-img-accent">🌊</div>
+      <div class="about-badge"><span>Est.</span><span>Diu UT</span></div>
+    </div>
+    <div class="about-text">
+      <p class="section-label">Our Story</p>
+      <h2 class="section-title">A Beachside<br/><em>Paradise in Diu</em></h2><br/>
+      <p>Nestled along the pristine shores of Nagoa Beach, Radhika Beach Resort & Spa is Diu's most cherished escape. Located on the sun-drenched island of Diu — a union territory off Gujarat's Kathiawar peninsula — we offer an unmatched blend of Portuguese-era charm and modern luxury.</p>
+      <p>Whether you're here for the golden sunsets, the warm Arabian Sea, or simply to unwind with world-class spa treatments, every moment at Radhika is crafted to leave you refreshed, restored, and enchanted.</p>
+      <p>Our resort is perfectly positioned to explore Diu's historic forts, tranquil churches, and vibrant seafood culture — while always having a serene retreat to return to.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── ROOMS ── -->
+<section id="rooms" class="rooms-section">
+  <div class="rooms-header">
+    <div>
+      <p class="section-label">Accommodation</p>
+      <h2 class="section-title">Our <em>Rooms & Suites</em></h2>
+    </div>
+    <a href="#contact" class="btn-primary" style="white-space:nowrap">Book a Room</a>
+  </div>
+  <div class="rooms-grid">
+    <div class="room-card featured">
+      <div class="room-bg">🌅</div>
+      <div class="room-overlay">
+        <p class="room-type">Signature Suite</p>
+        <h3 class="room-name">VIP Front Side Suite</h3>
+        <p class="room-desc">Our crown jewel — panoramic ocean views, private balcony, king bed, jacuzzi, and dedicated butler service.</p>
+        <div class="room-price"><span class="amt">₹9,500</span><span class="per">/ night onwards</span></div>
+        <a href="#contact" class="room-cta">Book This Room</a>
+      </div>
+    </div>
+    <div class="room-card">
+      <div class="room-bg">🛏️</div>
+      <div class="room-overlay">
+        <p class="room-type">Room</p>
+        <h3 class="room-name">Deluxe Comfort</h3>
+        <p class="room-desc">Garden views, mini refrigerator, bath tub & 24×7 room service.</p>
+        <div class="room-price"><span class="amt">₹4,500</span><span class="per">/ night</span></div>
+        <a href="#contact" class="room-cta">Reserve</a>
+      </div>
+    </div>
+    <div class="room-card">
+      <div class="room-bg">🌴</div>
+      <div class="room-overlay">
+        <p class="room-type">Room</p>
+        <h3 class="room-name">Deluxe Classic</h3>
+        <p class="room-desc">Elegant rooms facing the lush resort grounds with modern comforts.</p>
+        <div class="room-price"><span class="amt">₹5,500</span><span class="per">/ night</span></div>
+        <a href="#contact" class="room-cta">Reserve</a>
+      </div>
+    </div>
+    <div class="room-card">
+      <div class="room-bg">🏛️</div>
+      <div class="room-overlay">
+        <p class="room-type">Premium Room</p>
+        <h3 class="room-name">Royal Classic</h3>
+        <p class="room-desc">Spacious interiors, premium furnishings, and enhanced in-room amenities.</p>
+        <div class="room-price"><span class="amt">₹7,000</span><span class="per">/ night</span></div>
+        <a href="#contact" class="room-cta">Reserve</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AMENITIES ── -->
+<section id="amenities" class="amenities-section">
+  <div class="max-w">
+    <p class="section-label">Resort Facilities</p>
+    <h2 class="section-title">Everything You <em>Need & More</em></h2>
+  </div>
+  <div class="amenities-grid">
+    <div class="amenity-card"><span class="amenity-icon">🍽️</span><h3>Restaurant & Bar</h3><p>Savour fresh seafood, Gujarati thalis, and international cuisine with signature cocktails.</p></div>
+    <div class="amenity-card"><span class="amenity-icon">🏊</span><h3>Swimming Pool</h3><p>Sparkling outdoor pool — perfect for a morning swim or a lazy afternoon under the Diu sun.</p></div>
+    <div class="amenity-card"><span class="amenity-icon">💆</span><h3>Spa & Wellness</h3><p>Rejuvenate with Ayurvedic massages and modern spa therapies in our tranquil wellness centre.</p></div>
+    <div class="amenity-card"><span class="amenity-icon">🏋️</span><h3>Health Club</h3><p>Fully equipped fitness centre with modern machines and personal trainer on request.</p></div>
+    <div class="amenity-card"><span class="amenity-icon">🏓</span><h3>Recreation</h3><p>Pool table, table tennis, and a kids' corner — fun for the whole family.</p></div>
+    <div class="amenity-card"><span class="amenity-icon">🎪</span><h3>Banquets & Events</h3><p>Elegant banquet halls for weddings, corporate events, and family celebrations.</p></div>
+  </div>
+</section>
+
+<!-- ── DISCOVER DIU ── -->
+<section id="discover" class="discover-section">
+  <div class="max-w">
+    <p class="section-label">Explore the Island</p>
+    <h2 class="section-title" style="color:var(--white)">Discover <em style="color:var(--gold2)">Diu</em></h2>
+  </div>
+  <div class="discover-grid">
+    <div class="discover-card"><span class="icon">⛵</span><h3>Nagoa Beach</h3><p>Horseshoe-shaped beach just steps from our resort — perfect for sunrise walks and water sports.</p></div>
+    <div class="discover-card"><span class="icon">🏰</span><h3>Diu Fort</h3><p>Imposing 16th-century Portuguese fortification overlooking the Arabian Sea.</p></div>
+    <div class="discover-card"><span class="icon">⚓</span><h3>INS Khukhri Memorial</h3><p>A moving war memorial for India's 1971 naval battle — standing tall by the sea.</p></div>
+    <div class="discover-card"><span class="icon">🕍</span><h3>St. Paul's Church</h3><p>Finest example of Portuguese Baroque architecture in India — serene and stunning.</p></div>
+    <div class="discover-card"><span class="icon">🚢</span><h3>Panikotha Fort</h3><p>A dramatic ship-shaped fortress built offshore the Arabian Sea.</p></div>
+    <div class="discover-card"><span class="icon">🦜</span><h3>Fudam Village</h3><p>Charming Portuguese-influenced village with colourful houses and warm hospitality.</p></div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIAL ── -->
+<section class="testimonial-section">
+  <div class="max-w" style="text-align:center">
+    <p class="section-label">Guest Voices</p>
+    <div class="stars">★ ★ ★ ★ ★</div>
+    <blockquote class="testimonial-quote">
+      "The most magical place we've ever stayed. Waking up to the sound of the Arabian Sea, the impeccable service, and the sheer beauty of Diu — Radhika Resort made our holiday unforgettable."
+    </blockquote>
+    <p class="testimonial-author">— Priya & Rahul Mehta, Mumbai &nbsp;·&nbsp; TripAdvisor Review</p>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact" class="contact-section">
+  <div class="contact-grid">
+    <div>
+      <p class="section-label">Get in Touch</p>
+      <h2 class="contact-info-title">We'd Love to<br/>Host You</h2>
+      <div class="contact-item"><div class="c-icon">📍</div><div><h4>Address</h4><p>Nagoa, Diu — 362 520<br/>Union Territory of Daman & Diu, India</p></div></div>
+      <div class="contact-item"><div class="c-icon">📞</div><div><h4>Phone</h4><a href="tel:+919824418555">+91 98244 18555</a><br/><a href="tel:+919924885555">+91 99248 85555</a></div></div>
+      <div class="contact-item"><div class="c-icon">✉️</div><div><h4>Email</h4><a href="mailto:info@radhikaresort.com">info@radhikaresort.com</a><br/><a href="mailto:radhikaresort@gmail.com">radhikaresort@gmail.com</a></div></div>
+      <div class="contact-item"><div class="c-icon">🕐</div><div><h4>Check-in / Check-out</h4><p>Check-in: 12:00 PM &nbsp;·&nbsp; Check-out: 11:00 AM</p></div></div>
+    </div>
+    <div>
+      <p class="section-label">Reservation Enquiry</p>
+      <h2 class="contact-info-title">Book Your<br/>Stay</h2>
+      <div class="contact-form">
+        <div class="form-row">
+          <input type="text" placeholder="Your Name"/>
+          <input type="email" placeholder="Email Address"/>
+        </div>
+        <div class="form-row">
+          <input type="tel" placeholder="Phone Number"/>
+          <select><option value="">Select Room Type</option><option>Deluxe Comfort</option><option>Deluxe Classic</option><option>Royal Classic</option><option>VIP Suite</option></select>
+        </div>
+        <div class="form-row">
+          <input type="date" placeholder="Check In"/>
+          <input type="date" placeholder="Check Out"/>
+        </div>
+        <textarea placeholder="Any special requests or questions?"></textarea>
+        <button class="form-submit">Send Enquiry →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <p class="logo">Radhika Beach Resort & Spa</p>
+      <p>A beachside paradise on the pristine shores of Nagoa, Diu. Experience luxury, warmth, and the timeless beauty of the Arabian Sea.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/radhikabeachresort/" target="_blank" class="social-btn">f</a>
+        <a href="https://twitter.com/RadhikaResort" target="_blank" class="social-btn">𝕏</a>
+        <a href="https://www.instagram.com/radhikabeachresortspa/" target="_blank" class="social-btn">◎</a>
+        <a href="https://www.youtube.com/@radhikabeachresortspa" target="_blank" class="social-btn">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#rooms">Accommodation</a></li>
+        <li><a href="#amenities">Amenities</a></li>
+        <li><a href="#discover">Discover Diu</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Rooms</h4>
+      <ul>
+        <li><a href="#rooms">Deluxe Comfort</a></li>
+        <li><a href="#rooms">Deluxe Classic</a></li>
+        <li><a href="#rooms">Royal Classic</a></li>
+        <li><a href="#rooms">VIP Suite</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+919824418555">+91 98244 18555</a></li>
+        <li><a href="tel:+919924885555">+91 99248 85555</a></li>
+        <li><a href="mailto:info@radhikaresort.com">info@radhikaresort.com</a></li>
+        <li><a href="#">Nagoa, Diu — 362 520</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Radhika Beach Resort & Spa · All Rights Reserved</p>
+    <p>Designed with ♥ for Diu's finest resort</p>
+  </div>
+</footer>
+
+<!-- ── MOBILE BOTTOM CTA BAR ── -->
+<div class="mobile-cta-bar">
+  <a href="tel:+919824418555" class="cta-call">📞 Call Now</a>
+  <a href="#contact" class="cta-book">🛏️ Book Now</a>
+</div>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+  // Hamburger toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', () => {
+    const open = hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  // Close on link click
+  document.querySelectorAll('.mob-link').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Set default dates
+  const today = new Date(), tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  const fmt = d => d.toISOString().split('T')[0];
+  document.querySelectorAll('input[type="date"]').forEach((el, i) => {
+    el.value = fmt(i % 2 === 0 ? today : tomorrow);
+  });
+</script>
+</body>
+</html>
